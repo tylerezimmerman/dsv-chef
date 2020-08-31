@@ -10,7 +10,7 @@ property :tenant, String
 property :tld, String, default: "com"
 property :query, String
 
-action :create do
+action :read do
   begin
     v = Dsv::Vault.new(
       client_id: new_resource.client_id,
