@@ -10,5 +10,6 @@ gem_package 'dsv-sdk' do
     action :install
 end
 
-require 'dsv'
-v = Dsv::Vault.new
+dsv_credential 'cred' do
+    action :create
+end
