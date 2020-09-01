@@ -85,3 +85,8 @@ file '/tmp/dsv-test.txt' do
 	only_if { node.run_state.key?('dsv-cred') }
 end
 ```
+
+## Testing
+
+* `kitchen converge` will build the resources
+* `kitchen login` will login to the instance where you can verify that the secret contents have been written to the files.
