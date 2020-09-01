@@ -1,4 +1,4 @@
-require 'tss'
+require "tss"
 
 resource_name :tss_credential
 provides :tss_credential
@@ -15,7 +15,7 @@ action :read do
         username: new_resource.username,
         password: new_resource.password,
         tenant: new_resource.tenant
-
+    })
     secret = Tss::Secret.fetch(server, new_resource.query)
 
     node.run_state[new_resource.name] = secret

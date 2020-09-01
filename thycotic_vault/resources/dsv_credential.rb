@@ -1,4 +1,4 @@
-require 'dsv'
+require "dsv"
 
 resource_name :dsv_credential
 provides :dsv_credential

@@ -3,24 +3,27 @@
 # Recipe:: default
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
+gem_package 'tss-sdk' do
+    compile_time true
+    version '0.0.1'
+end
 
 gem_package 'dsv-sdk' do
     compile_time true
     version '0.0.6'
-    action :install
-end
-
-gem_package 'tss-sdk' do
-    compile_time true
-    version '0.0.6'
-    action :install
 end
 
 tss_credential 'tss-cred' do
-    username 'CLIENT_ID'
-    password 'CLIENT_SECRET'
+    username 'username'
+    password 'password'
     tenant 'tmg'
-    query '/test/sdk/simple'
+    query '1'
+end
+
+file '/tmp/tss-test.txt' do
+    sensitive true
+	content lazy { node.run_state['tss-cred']['items'][0].to_s }
+	only_if { node.run_state.key?('tss-cred') }
 end
 
 dsv_credential 'dsv-cred' do
@@ -31,7 +34,7 @@ dsv_credential 'dsv-cred' do
     query '/test/sdk/simple'
 end
 
-file '/tmp/test.txt' do
+file '/tmp/dsv-test.txt' do
 	sensitive true
 	content lazy { node.run_state['dsv-cred']["data"]["password"] }
 	only_if { node.run_state.key?('dsv-cred') }
