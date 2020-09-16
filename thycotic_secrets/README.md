@@ -1,6 +1,6 @@
 # thycotic_secrets cookbook
 
-Provides a new resource `dsv_secret` and a sample cookbook. This resource allows integration into Thycotic's DSV. 
+Provides two new resources: `dsv_secret` and `tss_secret`, as well as a sample cookbook. This resource allows integration into Thycotic's DSV and TSS. 
 
 ## Requirements
 
@@ -23,20 +23,49 @@ Provides a new resource `dsv_secret` and a sample cookbook. This resource allows
 * `client_secret` - Thycotic DSV Client Secret
 * `tenant` - Thycotic DSV Tenant
 * `tld` - Thycotic DSV Top Level Domain
-* `query` - The secret to query for
+* `query` - The credential to query for
+
+### `tss_credential`
+
+#### Actions
+* `:read` - Retrieves credential from Thycotic's DSV
+
+#### Properties
+* `name` - Name of the attribute
+* `username` - Thycotic TSS Username
+* `password` - Thycotic TSS Password
+* `tenant` - Thycotic DSV Tenant
+* `query` - The credential to query for
 
 #### Examples
 
-Retrives a secret the `/test/sdk/simple` secret from the vault and stores that value in `/tmp/test.txt`
+Retrives a credential the `/test/sdk/simple` credential from the dsv vault and stores that value in `/tmp/test.txt`. Additionally demonstrates using TSS to retrive the first secret.
 
 ```ruby
+gem_package 'tss-sdk' do
+    compile_time true
+    version '0.0.1'
+end
+
 gem_package 'dsv-sdk' do
     compile_time true
     version '0.0.6'
-    action :install
 end
 
-dsv_secret 'secret' do
+tss_credential 'tss-cred' do
+    username 'username'
+    password 'password'
+    tenant 'tmg'
+    query '1'
+end
+
+file '/tmp/tss-test.txt' do
+    sensitive true
+	content lazy { node.run_state['tss-cred']['items'][0].to_s }
+	only_if { node.run_state.key?('tss-cred') }
+end
+
+dsv_credential 'dsv-cred' do
     client_id 'CLIENT_ID'
     client_secret 'CLIENT_SECRET'
     tenant 'tmg'
@@ -44,9 +73,15 @@ dsv_secret 'secret' do
     query '/test/sdk/simple'
 end
 
-file '/tmp/test.txt' do
+file '/tmp/dsv-test.txt' do
 	sensitive true
-	content lazy { node.run_state['secret']["data"]["password"] }
-	only_if { node.run_state.key?('secret') }
+	content lazy { node.run_state['dsv-cred']["data"]["password"] }
+	only_if { node.run_state.key?('dsv-cred') }
 end
 ```
+
+## Testing
+
+* Install [chef workstation](https://docs.chef.io/workstation/install_workstation/)
+* `kitchen converge` will build the resources
+* `kitchen login` will login to the instance where you can verify that the secret contents have been written to the files.
