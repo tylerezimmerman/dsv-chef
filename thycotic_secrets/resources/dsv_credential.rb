@@ -1,7 +1,7 @@
 require 'dsv'
 
-resource_name :dsv_credential
-provides :dsv_credential
+resource_name :dsv_secret
+provides :dsv_secret
 
 property :name, String, name_property: true
 property :client_id, String
@@ -23,6 +23,6 @@ action :read do
 
     node.run_state[new_resource.name] = secret
   rescue Exception => e
-    raise "Could not find credential matching query!"
+    raise "Could not find secret matching query!"
   end
 end

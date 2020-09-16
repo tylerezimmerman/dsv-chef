@@ -1,6 +1,6 @@
-# thycotic_vault cookbook
+# thycotic_secrets cookbook
 
-Provides a new resource `dsv_credential` and a sample cookbook. This resource allows integration into Thycotic's DSV. 
+Provides a new resource `dsv_secret` and a sample cookbook. This resource allows integration into Thycotic's DSV. 
 
 ## Requirements
 
@@ -12,10 +12,10 @@ Provides a new resource `dsv_credential` and a sample cookbook. This resource al
 
 ## Custom Resources
 
-### `dsv_credential`
+### `dsv_secret`
 
 #### Actions
-* `:read` - Retrieves credential from Thycotic's DSV
+* `:read` - Retrieves secret from Thycotic's DSV
 
 #### Properties
 * `name` - Name of the attribute
@@ -23,11 +23,11 @@ Provides a new resource `dsv_credential` and a sample cookbook. This resource al
 * `client_secret` - Thycotic DSV Client Secret
 * `tenant` - Thycotic DSV Tenant
 * `tld` - Thycotic DSV Top Level Domain
-* `query` - The credential to query for
+* `query` - The secret to query for
 
 #### Examples
 
-Retrives a credential the `/test/sdk/simple` credential from the vault and stores that value in `/tmp/test.txt`
+Retrives a secret the `/test/sdk/simple` secret from the vault and stores that value in `/tmp/test.txt`
 
 ```ruby
 gem_package 'dsv-sdk' do
@@ -36,7 +36,7 @@ gem_package 'dsv-sdk' do
     action :install
 end
 
-dsv_credential 'cred' do
+dsv_secret 'secret' do
     client_id 'CLIENT_ID'
     client_secret 'CLIENT_SECRET'
     tenant 'tmg'
@@ -46,7 +46,7 @@ end
 
 file '/tmp/test.txt' do
 	sensitive true
-	content lazy { node.run_state['cred']["data"]["password"] }
-	only_if { node.run_state.key?('cred') }
+	content lazy { node.run_state['secret']["data"]["password"] }
+	only_if { node.run_state.key?('secret') }
 end
 ```

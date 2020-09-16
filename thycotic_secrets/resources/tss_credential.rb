@@ -1,7 +1,7 @@
 require 'tss'
 
-resource_name :tss_credential
-provides :tss_credential
+resource_name :tss_secret
+provides :tss_secret
 
 property :name, String, name_property: true
 property :username, String
@@ -20,6 +20,6 @@ action :read do
 
     node.run_state[new_resource.name] = secret
   rescue Exception => e
-    raise "Could not find credential matching query!"
+    raise "Could not find secret matching query!"
   end
 end

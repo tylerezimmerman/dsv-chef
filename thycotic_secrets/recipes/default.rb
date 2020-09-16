@@ -1,5 +1,5 @@
 #
-# Cookbook:: thycotic_vault
+# Cookbook:: thycotic_secrets
 # Recipe:: default
 #
 # Copyright:: 2020, The Authors, All Rights Reserved.
@@ -16,14 +16,14 @@ gem_package 'tss-sdk' do
     action :install
 end
 
-tss_credential 'tss-cred' do
+tss_secret 'tss-secret' do
     username 'CLIENT_ID'
     password 'CLIENT_SECRET'
     tenant 'tmg'
     query '/test/sdk/simple'
 end
 
-dsv_credential 'dsv-cred' do
+dsv_secret 'dsv-secret' do
     client_id 'CLIENT_ID'
     client_secret 'CLIENT_SECRET'
     tenant 'tmg'
@@ -33,6 +33,6 @@ end
 
 file '/tmp/test.txt' do
 	sensitive true
-	content lazy { node.run_state['dsv-cred']["data"]["password"] }
-	only_if { node.run_state.key?('dsv-cred') }
+	content lazy { node.run_state['dsv-secret']["data"]["password"] }
+	only_if { node.run_state.key?('dsv-secret') }
 end
