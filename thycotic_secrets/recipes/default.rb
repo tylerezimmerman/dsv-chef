@@ -5,15 +5,11 @@
 # Copyright:: 2020, The Authors, All Rights Reserved.
 
 gem_package 'dsv-sdk' do
-    #compile_time true
     version '0.0.6'
-    action :install
 end
 
 gem_package 'tss-sdk' do
-    #compile_time true
     version '0.0.1'
-    action :install
 end
 
 tss_secret 'tss-secret' do
