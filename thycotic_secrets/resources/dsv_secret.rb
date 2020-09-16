@@ -1,5 +1,3 @@
-require 'dsv'
-
 resource_name :dsv_secret
 provides :dsv_secret
 
