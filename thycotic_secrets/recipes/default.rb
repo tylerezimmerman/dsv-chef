@@ -17,14 +17,14 @@ dsv_secret 'dsv-secret' do
     client_secret 'secret'
     tenant 'tmg'
     tld 'com'
-    query '/test/secret'
+    secret_path '/test/secret'
 end
 
 tss_secret 'tss-secret' do
     username 'sdk_test_app'
     password 'password'
     tenant 'tmg'
-    query '1'
+    secret_id '1'
 end
 
 file '/tmp/dsv-test.txt' do

@@ -23,7 +23,7 @@ Provides two new resources: `dsv_secret` and `tss_secret`, as well as a sample c
 * `client_secret` - Thycotic DSV Client Secret
 * `tenant` - Thycotic DSV Tenant
 * `tld` - Thycotic DSV Top Level Domain
-* `query` - The credential to query for
+* `secret_path` - The secret path to query for
 
 ### `tss_credential`
 
@@ -35,7 +35,7 @@ Provides two new resources: `dsv_secret` and `tss_secret`, as well as a sample c
 * `username` - Thycotic TSS Username
 * `password` - Thycotic TSS Password
 * `tenant` - Thycotic DSV Tenant
-* `query` - The credential to query for
+* `secret_id` - The secret id to query for
 
 #### Examples
 

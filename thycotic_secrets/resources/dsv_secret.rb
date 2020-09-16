@@ -6,7 +6,7 @@ property :client_id, String
 property :client_secret, String
 property :tenant, String
 property :tld, String, default: "com"
-property :query, String
+property :secret_path, String
 
 action :read do
   require 'dsv'
@@ -18,10 +18,10 @@ action :read do
       tld: new_resource.tld
     )
 
-    secret = Dsv::Secret.fetch(v, new_resource.query)
+    secret = Dsv::Secret.fetch(v, new_resource.secret_path)
 
     node.run_state[new_resource.name] = secret
   rescue Exception => e
-    raise "Could not find secret matching query - Exception: #{e}"
+    raise "Could not find secret matching secret_path - Exception: #{e}"
   end
 end
