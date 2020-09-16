@@ -12,19 +12,19 @@ gem_package 'tss-sdk' do
     version '0.0.1'
 end
 
-tss_secret 'tss-secret' do
-    username 'CLIENT_ID'
-    password 'CLIENT_SECRET'
-    tenant 'tmg'
-    query '1'
-end
-
 dsv_secret 'dsv-secret' do
-    client_id 'CLIENT_ID'
-    client_secret 'CLIENT_SECRET'
+    client_id 'af8eb095-bdac-4d5a-9b4d-632c5bf7009c'
+    client_secret 'secret'
     tenant 'tmg'
     tld 'com'
-    query '/test/sdk/simple'
+    query '/test/secret'
+end
+
+tss_secret 'tss-secret' do
+    username 'sdk_test_app'
+    password 'password'
+    tenant 'tmg'
+    query '1'
 end
 
 file '/tmp/dsv-test.txt' do
@@ -35,6 +35,6 @@ end
 
 file '/tmp/tss-test.txt' do
 	sensitive true
-	content lazy { node.run_state['tss-secret']["data"]["password"] }
+	content lazy { node.run_state['tss-secret']["data"] }
 	only_if { node.run_state.key?('tss-secret') }
 end

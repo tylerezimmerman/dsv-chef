@@ -1,3 +1,5 @@
+require 'tss'
+
 resource_name :tss_secret
 provides :tss_secret
 
