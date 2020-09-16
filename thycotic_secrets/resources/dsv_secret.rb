@@ -1,5 +1,3 @@
-require 'dsv'
-
 resource_name :dsv_secret
 provides :dsv_secret
 
@@ -11,6 +9,7 @@ property :tld, String, default: "com"
 property :query, String
 
 action :read do
+  require 'dsv'
   begin
     v = Dsv::Vault.new(
       client_id: new_resource.client_id,
@@ -23,6 +22,6 @@ action :read do
 
     node.run_state[new_resource.name] = secret
   rescue Exception => e
-    raise "Could not find secret matching query!"
+    raise "Could not find secret matching query - Exception: #{e}"
   end
 end

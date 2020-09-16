@@ -1,5 +1,3 @@
-require 'tss'
-
 resource_name :tss_secret
 provides :tss_secret
 
@@ -10,6 +8,7 @@ property :tenant, String
 property :query, String
 
 action :read do
+  require 'tss'
   begin
     server = Tss::Server.new({
         username: new_resource.username,
@@ -21,6 +20,6 @@ action :read do
 
     node.run_state[new_resource.name] = secret
   rescue Exception => e
-    raise "Could not find secret matching query!"
+    raise "Could not find secret matching query - Exception: #{e}"
   end
 end
