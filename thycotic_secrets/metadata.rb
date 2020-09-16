@@ -1,4 +1,4 @@
-name 'thycotic_secrets'
+name 'thycotic_vault'
 maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
