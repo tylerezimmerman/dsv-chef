@@ -9,13 +9,13 @@ property :tld, String, default: "com"
 property :secret_path, String
 
 action :read do
-  require 'dsv'
+  require "dsv"
   begin
     v = Dsv::Vault.new(
       client_id: new_resource.client_id,
       client_secret: new_resource.client_secret,
       tenant: new_resource.tenant,
-      tld: new_resource.tld
+      tld: new_resource.tld,
     )
 
     secret = Dsv::Secret.fetch(v, new_resource.secret_path)

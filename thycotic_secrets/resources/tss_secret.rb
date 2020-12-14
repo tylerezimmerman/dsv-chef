@@ -8,12 +8,12 @@ property :tenant, String
 property :secret_id, String
 
 action :read do
-  require 'tss'
+  require "tss"
   begin
     server = Tss::Server.new({
-        username: new_resource.username,
-        password: new_resource.password,
-        tenant: new_resource.tenant
+      username: new_resource.username,
+      password: new_resource.password,
+      tenant: new_resource.tenant,
     })
 
     secret = Tss::Secret.fetch(server, new_resource.secret_id)
