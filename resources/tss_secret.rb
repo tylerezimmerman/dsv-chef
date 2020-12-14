@@ -4,7 +4,7 @@ provides :tss_secret
 property :name, String, name_property: true
 property :username, String
 property :password, String
-property :tenant, String
+property :server_url, String
 property :secret_id, String
 
 action :read do
@@ -13,7 +13,7 @@ action :read do
     server = Tss::Server.new({
       username: new_resource.username,
       password: new_resource.password,
-      tenant: new_resource.tenant,
+      server_url: new_resource.server_url,
     })
 
     secret = Tss::Secret.fetch(server, new_resource.secret_id)

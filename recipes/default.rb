@@ -15,20 +15,20 @@ end
 dsv_data_bag = data_bag_item("thycotic", "thycotic_dsv")
 
 dsv_secret "dsv-secret" do
-  client_id dsv_data_bag["thycotic_client_id"]
-  client_secret dsv_data_bag["thycotic_client_secret"]
-  tenant dsv_data_bag["thycotic_tenant"]
-  tld dsv_data_bag["thycotic_tld"]
-  secret_path dsv_data_bag["thycotic_secret_path"]
+  client_id       dsv_data_bag["thycotic_client_id"]
+  client_secret   dsv_data_bag["thycotic_client_secret"]
+  tenant          dsv_data_bag["thycotic_tenant"]
+  tld             dsv_data_bag["thycotic_tld"]
+  secret_path     dsv_data_bag["thycotic_secret_path"]
 end
 
 tss_data_bag = data_bag_item("thycotic", "thycotic_tss")
 
 tss_secret "tss-secret" do
-  username tss_data_bag["thycotic_username"]
-  password tss_data_bag["thycotic_password"]
-  server_url tss_data_bag["thycotic_server_url"]
-  secret_id tss_data_bag["thycotic_secret_id"]
+  username    tss_data_bag["thycotic_username"]
+  password    tss_data_bag["thycotic_password"]
+  server_url  tss_data_bag["thycotic_server_url"]
+  secret_id   tss_data_bag["thycotic_secret_id"]
 end
 
 file "/tmp/dsv-test.txt" do
