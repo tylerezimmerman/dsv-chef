@@ -1,41 +1,33 @@
-# thycotic_secrets cookbook
+# dsv_chef cookbook
 
-Provides two new resources: `dsv_secret` and `tss_secret`, as well as a sample cookbook. This resource allows integration into Thycotic's DSV and TSS. 
+Provides a new resources: `dsv_secret`, as well as a sample cookbook. This resource allows integration into Thycotic's DSV.
 
 ## Requirements
 
 ### Platforms
-* All platforms supported
+
+- All platforms supported
 
 ### Chef
-* Chef 15+
+
+- Chef 15+
 
 ## Custom Resources
 
 ### `dsv_secret`
 
 #### Actions
-* `:read` - Retrieves secret from Thycotic's DSV
+
+- `:read` - Retrieves secret from Thycotic's DSV
 
 #### Properties
-* `name` - Name of the attribute
-* `client_id` - Thycotic DSV Client ID
-* `client_secret` - Thycotic DSV Client Secret
-* `tenant` - Thycotic DSV Tenant
-* `tld` - Thycotic DSV Top Level Domain
-* `secret_path` - The secret path to query for
 
-### `tss_credential`
-
-#### Actions
-* `:read` - Retrieves credential from Thycotic's DSV
-
-#### Properties
-* `name` - Name of the attribute
-* `username` - Thycotic TSS Username
-* `password` - Thycotic TSS Password
-* `tenant` - Thycotic DSV Tenant
-* `secret_id` - The secret id to query for
+- `name` - Name of the attribute
+- `client_id` - Thycotic DSV Client ID
+- `client_secret` - Thycotic DSV Client Secret
+- `tenant` - Thycotic DSV Tenant
+- `tld` - Thycotic DSV Top Level Domain
+- `secret_path` - The secret path to query for
 
 #### Examples
 
@@ -82,6 +74,6 @@ end
 
 ## Testing
 
-* Install [chef workstation](https://docs.chef.io/workstation/install_workstation/)
-* `kitchen converge` will build the resources
-* `kitchen login` will login to the instance where you can verify that the secret contents have been written to the files.
+- Install [chef workstation](https://docs.chef.io/workstation/install_workstation/)
+- `kitchen converge` will build the resources
+- `kitchen login` will login to the instance where you can verify that the secret contents have been written to the files.
