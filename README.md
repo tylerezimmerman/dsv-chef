@@ -31,44 +31,27 @@ Provides a new resources: `dsv_secret`, as well as a sample cookbook. This resou
 
 #### Examples
 
-Retrives a credential the `/test/sdk/simple` credential from the dsv vault and stores that value in `/tmp/test.txt`. Additionally demonstrates using TSS to retrive the first secret.
+Retrives a credential the `/test/sdk/simple` credential from the dsv vault and stores that value in `/tmp/dsv-test.txt`.
 
 ```ruby
-gem_package 'tss-sdk' do
-    compile_time true
-    version '0.0.1'
+gem_package "dsv-sdk" do
+  version "0.0.6"
 end
 
-gem_package 'dsv-sdk' do
-    compile_time true
-    version '0.0.6'
+dsv_data_bag = data_bag_item("thycotic", "thycotic_dsv")
+
+dsv_secret "dsv-secret" do
+  client_id       dsv_data_bag["thycotic_client_id"]
+  client_secret   dsv_data_bag["thycotic_client_secret"]
+  tenant          dsv_data_bag["thycotic_tenant"]
+  tld             dsv_data_bag["thycotic_tld"]
+  secret_path     dsv_data_bag["thycotic_secret_path"]
 end
 
-tss_credential 'tss-cred' do
-    username 'username'
-    password 'password'
-    tenant 'tmg'
-    query '1'
-end
-
-file '/tmp/tss-test.txt' do
-    sensitive true
-	content lazy { node.run_state['tss-cred']['items'][0].to_s }
-	only_if { node.run_state.key?('tss-cred') }
-end
-
-dsv_credential 'dsv-cred' do
-    client_id 'CLIENT_ID'
-    client_secret 'CLIENT_SECRET'
-    tenant 'tmg'
-    tld 'com'
-    query '/test/sdk/simple'
-end
-
-file '/tmp/dsv-test.txt' do
-	sensitive true
-	content lazy { node.run_state['dsv-cred']["data"]["password"] }
-	only_if { node.run_state.key?('dsv-cred') }
+file "/tmp/dsv-test.txt" do
+  sensitive true
+  content lazy { node.run_state["dsv-secret"].to_s }
+  only_if { node.run_state.key?("dsv-secret") }
 end
 ```
 
