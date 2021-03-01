@@ -1,4 +1,4 @@
-# dsv_chef cookbook
+# DSV Chef Cookbook
 
 Provides a new resources: `dsv_secret`, as well as a sample cookbook. This resource allows integration into Thycotic's DSV.
 
